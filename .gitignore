@@ -53,3 +53,6 @@ exports/
 # Keep template examples if explicitly added under docs/examples
 !docs/examples/*.csv
 !docs/examples/*.json
+
+# Local private reference files, not uploaded to GitHub
+local_private/
