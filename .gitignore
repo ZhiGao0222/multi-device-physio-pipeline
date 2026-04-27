@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+.env
+.env.*
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Research data - DO NOT commit
+raw_data/
+processed_data/
+aligned_data/
+quality_reports/
+logs/
+exports/
+
+# Device exports / sensitive files
+*.avro
+*.csv
+*.xlsx
+*.xls
+*.txt
+*.zip
+*.7z
+*.tar
+*.gz
+*credential*
+*Credential*
+*credentials*
+*accesskey*
+*accesskeys*
+*secret*
+*密钥*
+
+# Project idea / private docs
+*.pptx
+*.pages
+*.pdf
+*.docx
+
+# Keep template examples if explicitly added under docs/examples
+!docs/examples/*.csv
+!docs/examples/*.json

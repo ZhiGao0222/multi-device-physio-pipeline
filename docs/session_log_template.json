@@ -1,0 +1,10 @@
+{
+  "participant_id": "sub-000",
+  "session_id": "ses-001",
+  "start_time_local": "2026-04-27T00:00:00",
+  "end_time_local": "2026-04-27T00:20:00",
+  "timezone": "America/New_York",
+  "devices_used": ["polar", "empatica", "muse", "geneactiv", "respiban", "masimo"],
+  "operator": "ZG",
+  "notes": "Technical self-test only; not formal participant data."
+}

@@ -1,0 +1,70 @@
+project_root: "."
+timezone: "America/New_York"
+
+paths:
+  raw_data: "raw_data"
+  processed_data: "processed_data"
+  aligned_data: "aligned_data"
+  quality_reports: "quality_reports"
+  logs: "logs"
+
+devices:
+  polar:
+    name: "Polar H10"
+    signals: ["ecg", "acc", "hrv"]
+    time_source: "phone_local_timestamp"
+  empatica:
+    name: "Empatica EmbracePlus"
+    signals: ["eda", "pulse_rate", "temperature", "accelerometer", "wearing_detection"]
+    time_source: "timestamp_iso_utc"
+  muse:
+    name: "Muse 2"
+    signals: ["eeg_features"]
+    time_source: "mind_monitor_local_timestamp"
+  respiban:
+    name: "respiBAN"
+    signals: ["resp", "ecg", "imu"]
+    time_source: "opensignals_header_or_epoch"
+  masimo:
+    name: "Masimo MightySat"
+    signals: ["spo2", "pulse"]
+    time_source: "epoch_seconds_or_export_timestamp"
+  geneactiv:
+    name: "GENEActiv"
+    signals: ["actigraphy", "light", "temperature"]
+    time_source: "header_timezone_local_timestamp"
+  ontrak:
+    name: "OnTrak ABPM"
+    signals: ["blood_pressure"]
+    time_source: "not_available_yet"
+  ema:
+    name: "EMA / REDCap"
+    signals: ["responses"]
+    time_source: "redcap_timestamp"
+
+quality:
+  flag_values:
+    valid: 0
+    suspect: 1
+    invalid: 2
+  hr_min: 30
+  hr_max: 220
+  spo2_min: 70
+  spo2_max: 100
+  temp_min: 25
+  temp_max: 42
+  systolic_bp_min: 60
+  systolic_bp_max: 250
+  diastolic_bp_min: 30
+  diastolic_bp_max: 150
+  max_gap_seconds:
+    polar: 2
+    empatica: 5
+    muse: 2
+    respiban: 2
+    masimo: 30
+    geneactiv: 5
+
+alignment:
+  default_resolution: "1s"
+  feature_resolution: "1min"
