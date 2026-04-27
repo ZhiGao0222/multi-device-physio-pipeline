@@ -2,7 +2,12 @@ from __future__ import annotations
 
 import argparse
 import importlib
+import sys
 from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 from pipeline.align import overlap_summary, summarize_processed_files
 from pipeline.config import get_path, load_config
@@ -32,13 +37,18 @@ def run_parse(cfg: dict, participant: str, session: str):
         device_dir = session_dir / device
         if not device_dir.exists():
             continue
+
         module = importlib.import_module(f"pipeline.parsers.{device}")
         parser = module.Parser(cfg, participant, session)
         frames = parser.parse(device_dir)
+
         for i, df in enumerate(frames):
+            if df is None or df.empty:
+                continue
             df = add_basic_quality_flags(df)
-            signal = df["signal_type"].iloc[0] if "signal_type" in df and len(df) else f"signal{i}"
-            out = processed_dir / f"{participant}_{session}_{device}_{signal}.parquet"
+            signal = df["signal_type"].iloc[0] if "signal_type" in df.columns and len(df) else f"signal{i}"
+            safe_signal = str(signal).replace("/", "_").replace(" ", "_")
+            out = processed_dir / f"{participant}_{session}_{device}_{safe_signal}.parquet"
             df.to_parquet(out, index=False)
             print(f"Wrote {out}")
 
@@ -61,6 +71,7 @@ def main() -> None:
     args = ap.parse_args()
 
     cfg = load_config(args.config)
+
     if args.stage in ["inventory", "all"]:
         run_inventory(cfg, args.participant, args.session)
     if args.stage in ["parse", "all"]:
