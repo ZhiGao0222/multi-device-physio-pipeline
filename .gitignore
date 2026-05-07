@@ -56,3 +56,6 @@ exports/
 
 # Local private reference files, not uploaded to GitHub
 local_private/
+
+# Keep project dependency file
+!requirements.txt
